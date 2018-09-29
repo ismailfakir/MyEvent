@@ -1,0 +1,52 @@
+@import net.cloudcentrik.myevent.db.user.User
+@(title: String,isAdmin:Boolean,users: List[User])
+
+@template(title){
+
+@if(isAdmin) {
+<div class="card-header">
+    <i class="fas fa-table"></i>
+    User Table
+</div>
+<div class="card-body">
+    <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Password</th>
+                <th>Phone</th>
+            </tr>
+            </thead>
+            <tfoot>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Password</th>
+                <th>Phone</th>
+            </tr>
+            </tfoot>
+            <tbody>
+            @for(user <- users) {
+            <tr>
+                <td>@user.get_id()</td>
+                <td>@user.getName()</td>
+                <td>@user.getEmail()</td>
+                <td>@user.getPassword</td>
+                <td>@user.getPhone</td>
+            </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+} else {
+<h1>USER PANEL</h1>
+}
+
+}
