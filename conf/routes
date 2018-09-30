@@ -7,6 +7,8 @@ GET     /                           controllers.HomeController.login
 POST     /login/submit                           controllers.HomeController.loginSubmit
 POST     /register/submit                           controllers.HomeController.registerSubmit
 GET     /dashboard                           controllers.HomeController.index
+GET     /dashboard/logout                           controllers.HomeController.logout
+GET     /dashboard/participant                          controllers.HomeController.participant
 
 
 GET     /register                           controllers.HomeController.register

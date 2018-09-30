@@ -1,0 +1,123 @@
+@import net.cloudcentrik.myevent.db.participant.Participant
+@(title: String,isAdmin:Boolean,participants: List[Participant])
+
+@template(title){
+
+@if(isAdmin) {
+<div class="card-header">
+    <i class="fas fa-table"></i>
+    Participants
+</div>
+<div class="card-body">
+    <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Type</th>
+                <th>Email</th>
+                <th>Name</th>
+                <th>Child</th>
+                <th>Adult</th>
+                <th>Total</th>
+                <th>Confirm</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tfoot>
+            <tr>
+                <th>Id</th>
+                <th>Type</th>
+                <th>Email</th>
+                <th>Name</th>
+                <th>Child</th>
+                <th>Adult</th>
+                <th>Total</th>
+                <th>Confirm</th>
+                <th>Action</th>
+            </tr>
+            </tfoot>
+            <tbody>
+            @for(participant <- participants) {
+            <tr>
+                <td>@participant.get_id()</td>
+                <td>@participant.getType()</td>
+                <td>@participant.getEmail()</td>
+                <td>@participant.getName()</td>
+                <td>@participant.getNoOfChild()</td>
+                <td>@participant.getNoOfAdult()</td>
+                <td>@participant.getTotal()</td>
+                <td>@participant.isConfirm()</td>
+                <td>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"
+                            data-name="@participant.getName()" data-email="@participant.getEmail()"
+                            data-child="@participant.getNoOfChild()" data-adult="@participant.getNoOfAdult()"
+                            data-total="@participant.getTotal()">
+                        <i class="fas fa-fw fa-edit"></i>
+                    </button>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                        <i class="fas fa-fw fa-trash"></i>
+                    </button>
+                </td>
+            </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Update Participant</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="modalParticipantEmail">Email</label>
+                        <input type="email" class="form-control" id="modalParticipantEmail" aria-describedby="emailHelp" placeholder="email" readonly>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="modalParticipantName">Name</label>
+                        <input type="email" class="form-control" id="modalParticipantName" aria-describedby="emailHelp" placeholder="name" readonly>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="form-row">
+                            <div class="col-4">
+                                <label for="modalParticipantChild">Child</label>
+                                <input type="text" id="modalParticipantChild" class="form-control" placeholder="Children">
+                            </div>
+                            <div class="col-4">
+                                <label for="modalParticipantAdult">Adult</label>
+                                <input type="text" id="modalParticipantAdult" class="form-control" placeholder="adult">
+                            </div>
+                            <div class="col-4">
+                                <label for="modalParticipantTotal">Total</label>
+                                <input type="text" id="modalParticipantTotal" class="form-control" placeholder="total">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--<button type="submit" class="btn btn-primary">Submit</button>-->
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+} else {
+<h1>USER PANEL</h1>
+}
+
+}

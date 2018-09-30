@@ -1,18 +1,17 @@
 package controllers;
 
 import com.google.inject.Inject;
-import javafx.application.Application;
+import net.cloudcentrik.myevent.db.participant.Participant;
+import net.cloudcentrik.myevent.db.participant.ParticipantRepository;
 import net.cloudcentrik.myevent.db.user.User;
 import net.cloudcentrik.myevent.db.user.UserRepository;
+import net.cloudcentrik.myevent.util.MyEventUtils;
 import play.Logger;
 import play.data.DynamicForm;
 import play.data.FormFactory;
 import play.mvc.Controller;
 import play.mvc.Result;
-import views.html.dashboard;
-import views.html.forgotpassword;
-import views.html.login;
-import views.html.register;
+import views.html.*;
 
 import java.util.List;
 
@@ -43,6 +42,12 @@ public class HomeController extends Controller {
         return ok(login.render("Login",""));
     }
 
+    //logout page
+    public Result logout() {
+        session().clear();
+        return ok(login.render("Login",""));
+    }
+
     //login page
     public Result loginSubmit() {
 
@@ -54,7 +59,7 @@ public class HomeController extends Controller {
         LOG.info("user :"+userName);
         LOG.info("password :"+userPassword);
 
-        final User user=new UserRepository().findUserByEmail(userName,userPassword);
+        final User user=new UserRepository().findUserByEmail(userName,MyEventUtils.MD5(userPassword));
 
         if(user!=null){
             LOG.info("user :"+user.toString());
@@ -65,6 +70,18 @@ public class HomeController extends Controller {
         }
 
         return index();
+    }
+
+    //login page
+    public Result participant() {
+
+        String user = session("user");
+        if(user==null){
+            return ok(login.render("Login",""));
+        }else {
+            List<Participant> participantList=new ParticipantRepository().listAllParticipant();
+            return ok(participants.render("participant",Boolean.TRUE,participantList));
+        }
     }
 
     //register
@@ -78,7 +95,7 @@ public class HomeController extends Controller {
         final String password=dynamicForm.get("password").trim();
 
 
-        final User user=new User(name,password,email,phone);
+        final User user=new User(name,MyEventUtils.MD5(password),email,phone);
 
         new UserRepository().saveUser(user);
 
