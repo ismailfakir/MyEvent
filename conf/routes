@@ -9,6 +9,7 @@ POST     /register/submit                           controllers.HomeController.r
 GET     /dashboard                           controllers.HomeController.index
 GET     /dashboard/logout                           controllers.HomeController.logout
 GET     /dashboard/participant                          controllers.HomeController.participant
+GET     /dashboard/participant/delete/:email                          controllers.HomeController.deleteParticipant(email: String)
 
 
 GET     /register                           controllers.HomeController.register

@@ -17,3 +17,15 @@ $('#exampleModal').on('show.bs.modal', function (event) {
   modal.find('.modal-body #modalParticipantAdult').val(adult)
   modal.find('.modal-body #modalParticipantTotal').val(total)
 });
+
+//delete participants modal
+$('#deleteModal').on('show.bs.modal', function (event) {
+  var button = $(event.relatedTarget) // Button that triggered the modal
+  var email = button.data('email') // Extract info from data-* attributes
+
+  var modal = $(this)
+  modal.find('.modal-title').text('Delete ' + email)
+  //modal.find('.modal-footer #deleteModalParticipantEmail').href="@CSRF(routes.HomeController.deleteParticipant(\""+email+"\"))";
+  modal.find('.modal-footer #deleteModalParticipantEmail').attr("href","/dashboard/participant/delete/"+email);
+
+});

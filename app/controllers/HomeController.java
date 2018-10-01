@@ -72,8 +72,24 @@ public class HomeController extends Controller {
         return index();
     }
 
-    //login page
+    //participant page
     public Result participant() {
+
+        String user = session("user");
+        if(user==null){
+            return ok(login.render("Login",""));
+        }else {
+            List<Participant> participantList=new ParticipantRepository().listAllParticipant();
+            return ok(participants.render("participant",Boolean.TRUE,participantList));
+        }
+    }
+
+    //delete participant
+    public Result deleteParticipant(String email) {
+
+        LOG.info("Email : "+email);
+
+        new ParticipantRepository().deletePerticipantByEmail(email);
 
         String user = session("user");
         if(user==null){

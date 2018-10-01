@@ -31,4 +31,10 @@ public class ParticipantRepository {
         final List<Participant> userList = query.asList();
         return userList;
     }
+
+    public void deletePerticipantByEmail(String email){
+        final Query<Participant> query = datastore.createQuery(Participant.class);
+        query.field("email").equal(email);
+        datastore.findAndDelete(query);
+    }
 }

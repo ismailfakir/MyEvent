@@ -1,3 +1,4 @@
+@import helper._
 @import net.cloudcentrik.myevent.db.participant.Participant
 @(title: String,isAdmin:Boolean,participants: List[Participant])
 
@@ -55,7 +56,7 @@
                             data-total="@participant.getTotal()">
                         <i class="fas fa-fw fa-edit"></i>
                     </button>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deleteModal" data-email="@participant.getEmail()">
                         <i class="fas fa-fw fa-trash"></i>
                     </button>
                 </td>
@@ -115,6 +116,27 @@
         </div>
     </div>
 </div>
+
+<!-- Delete Modal Start-->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Are you sure?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Do you really want to delete these records? This process cannot be undone.</div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <!--<a class="btn btn-primary" id="deleteModalParticipantEmail" href="@CSRF(routes.HomeController.deleteParticipant("ismail@yahoo.se"))">Delete</a>-->
+                <a class="btn btn-primary" id="deleteModalParticipantEmail" href="">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Delete Modal End-->
 
 } else {
 <h1>USER PANEL</h1>
