@@ -11,6 +11,8 @@ GET     /dashboard/logout                           controllers.HomeController.l
 GET     /dashboard/participant                          controllers.HomeController.participant
 GET     /dashboard/participant/delete/:email                          controllers.HomeController.deleteParticipant(email: String)
 
+POST    /dashboard/participant/editSubmit                          controllers.ParticipantController.submitEditParticipant
+
 
 GET     /register                           controllers.HomeController.register
 GET     /forgotpassword                           controllers.HomeController.forgotpassword

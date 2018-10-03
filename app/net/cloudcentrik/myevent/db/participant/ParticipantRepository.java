@@ -3,6 +3,8 @@ package net.cloudcentrik.myevent.db.participant;
 import net.cloudcentrik.myevent.config.MongoConfig;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.query.Query;
+import org.mongodb.morphia.query.UpdateOperations;
+import org.mongodb.morphia.query.UpdateResults;
 
 import java.util.List;
 
@@ -36,5 +38,17 @@ public class ParticipantRepository {
         final Query<Participant> query = datastore.createQuery(Participant.class);
         query.field("email").equal(email);
         datastore.findAndDelete(query);
+    }
+
+    public void updatePerticipantByEmail(String email,int noOfChild,int noOfAdult,boolean confirm){
+        final Query<Participant> query = datastore.createQuery(Participant.class)
+                .field("email").equal(email);
+        final UpdateOperations<Participant> updateOperations = datastore.createUpdateOperations(Participant.class)
+                .set("noOfChild", noOfChild)
+                .set("noOfAdult", noOfAdult)
+                .set("total", noOfChild+noOfAdult)
+                .set("confirm", confirm);
+
+        final UpdateResults results = datastore.update(query, updateOperations);
     }
 }
