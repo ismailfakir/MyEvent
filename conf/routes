@@ -13,6 +13,17 @@ GET     /dashboard/participant/delete/:email                          controller
 
 POST    /dashboard/participant/editSubmit                          controllers.ParticipantController.submitEditParticipant
 
+# USER CONTROLLER ACTIONS
+GET     /dashboard/users                          controllers.UsersController.index
+GET     /dashboard/users/delete/:email            controllers.UsersController.deleteUser(email: String)
+POST    /dashboard/users/editSubmit               controllers.UsersController.submitEditUser
+POST    /dashboard/users/addSubmit               controllers.UsersController.submitAddUser
+
+# FOOD ITEM CONTROLLER ACTIONS
+GET     /dashboard/fooditems                          controllers.FoodItemsController.index
+GET     /dashboard/fooditems/delete/:email            controllers.FoodItemsController.deleteFoodItem(email: String)
+POST    /dashboard/fooditems/editSubmit               controllers.FoodItemsController.submitEditFoodItem
+POST    /dashboard/fooditems/addSubmit               controllers.FoodItemsController.submitAddFoodItem
 
 GET     /register                           controllers.HomeController.register
 GET     /forgotpassword                           controllers.HomeController.forgotpassword

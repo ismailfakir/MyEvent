@@ -1,0 +1,186 @@
+@import helper._
+@import net.cloudcentrik.myevent.db.food.FoodItem
+@(title: String,isAdmin:Boolean,foodItems: List[FoodItem])
+
+@template(title){
+
+@if(isAdmin) {
+<div class="card-header">
+    <i class="fas fa-table"></i>
+    User Table
+    <button type="button" class="float-right btn btn-primary" data-toggle="modal" data-target="#addFoodItemModal">
+        <i class="fas fa-fw fa-plus-square"></i>Add Food Item
+    </button>
+</div>
+<div class="card-body">
+    <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Type</th>
+                <th>Name</th>
+                <th>Amount</th>
+                <th>Participant Email</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tfoot>
+            <tr>
+                <th>Id</th>
+                <th>Type</th>
+                <th>Name</th>
+                <th>Amount</th>
+                <th>Participant Email</th>
+                <th>Action</th>
+            </tr>
+            </tfoot>
+            <tbody>
+            @for(foodItem <- foodItems) {
+            <tr>
+                <td>@foodItem.getId()</td>
+                <td>@foodItem.getType()</td>
+                <td>@foodItem.getName()</td>
+                <td>@foodItem.getAmount()</td>
+                <td>@foodItem.getEmail()</td>
+                <td>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editUserModal"
+                            data-name="@foodItem.getName()" data-email="@foodItem.getEmail()"
+                            data-type="@foodItem.getType()" data-amount="@foodItem.getAmount()">
+                        <i class="fas fa-fw fa-edit"></i>
+                    </button>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deleteFoodItemModal"
+                            data-email="@foodItem.getId()">
+                        <i class="fas fa-fw fa-trash"></i>
+                    </button>
+                </td>
+            </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Modal Edit Food Item start-->
+<div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="editUserModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Update User</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method="post" action="@CSRF(routes.FoodItemsController.submitEditFoodItem())">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="modalUserEmail">Email</label>
+                        <input name="email" type="email" class="form-control" id="modalUserEmail"
+                               aria-describedby="emailHelp" placeholder="email" readonly>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="modalUserName">Name</label>
+                        <input name="name" type="text" class="form-control" id="modalUserName"
+                               aria-describedby="nameHelp" placeholder="name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="modalUserPassword">Password</label>
+                        <input name="password" type="password" class="form-control" id="modalUserPassword"
+                               aria-describedby="passwordHelp" placeholder="password">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="modalUserPhone">Phone</label>
+                        <input name="phone" type="text" class="form-control" id="modalUserPhone"
+                               aria-describedby="phoneHelp" placeholder="phone">
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Modal Edit Food Item end-->
+
+<!-- Modal  Delete Food Item Start-->
+<div class="modal fade" id="deleteFoodItemModal" tabindex="-1" role="dialog" aria-labelledby="deleteFoodItemModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Are you sure?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Do you really want to delete these records? This process cannot be undone.</div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <a class="btn btn-primary" id="deleteModalFoodItemId" href="">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal Delete Food Item End-->
+
+<!-- Modal add Food Item  start-->
+<div class="modal fade" id="addFoodItemModal" tabindex="-1" role="dialog" aria-labelledby="addFoodItemModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addUserModalLabel">Add New Food Item</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method="post" action="@CSRF(routes.FoodItemsController.submitAddFoodItem())">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="modalUserEmail">Email</label>
+                        <input name="email" type="email" class="form-control" id="modalAddUserEmail"
+                               aria-describedby="emailHelp" placeholder="email">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="modalUserName">Name</label>
+                        <input name="name" type="text" class="form-control" id="modalAddUserName"
+                               aria-describedby="nameHelp" placeholder="name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="modalUserPassword">Type</label>
+                        <input name="type" type="password" class="form-control" id="modalAddUserPassword"
+                               aria-describedby="passwordHelp" placeholder="password">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="modalUserPhone">Amount</label>
+                        <input name="amount" type="text" class="form-control" id="modalAddUserPhone"
+                               aria-describedby="phoneHelp" placeholder="phone">
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Modal Add Food Item end-->
+
+
+} else {
+<h1>USER PANEL</h1>
+}
+
+}

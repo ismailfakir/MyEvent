@@ -51,4 +51,69 @@ $("#modalConfirmCheckBox").change(function() {
    }
 });
 
+/**
+  * ================================================
+  * MODAL DELETE USER
+  * ================================================
+*/
+$('#deleteUserModal').on('show.bs.modal', function (event) {
+  var button = $(event.relatedTarget) // Button that triggered the modal
+  var email = button.data('email') // Extract info from data-* attributes
+
+  var modal = $(this)
+  modal.find('.modal-title').text('Delete ' + email)
+  modal.find('.modal-footer #deleteModalUserEmail').attr("href","/dashboard/users/delete/"+email);
+
+});
+
+/**
+  * ================================================
+  * MODAL EDIT USER
+  * ================================================
+*/
+$('#editUserModal').on('show.bs.modal', function (event) {
+  var button = $(event.relatedTarget) // Button that triggered the modal
+  var email = button.data('email') // Extract info from data-* attributes
+  var name = button.data('name')
+  var password = button.data('password')
+  var phone = button.data('phone')
+
+  var modal = $(this)
+  modal.find('.modal-body #modalUserEmail').val(email)
+  modal.find('.modal-body #modalUserName').val(name)
+  modal.find('.modal-body #modalUserPassword').val(password)
+  modal.find('.modal-body #modalUserPhone').val(phone)
+
+});
+
+/**
+  * ================================================
+  * SHOW AN ALERT
+  * ================================================
+*/
+function showAlert(obj){
+    var html = '<div class="alert alert-' + obj.class + ' alert-dismissible" role="alert">'+
+        '   <strong>' + obj.message + '</strong>'+
+        '       <button class="close" type="button" data-dismiss="alert" aria-label="Close">'+
+        '           <span aria-hidden="true">×</span>'+
+        '       </button>'
+        '   </div>';
+
+    $('#alert').append(html);
+}
+
+ $('#Show').on('click', function () {
+    showAlert({message: 'Hello word!', class:"danger"});
+ });
+
+ /**
+   * ================================================
+   * SHOW AN ALERT FROM FLASH
+   * ================================================
+ */
+
+ $(".alert-dismissible").fadeTo(2000, 500).slideUp(1500, function(){
+     $(".alert-dismissible").alert('close');
+ });
+
 
