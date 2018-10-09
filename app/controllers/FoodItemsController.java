@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import net.cloudcentrik.myevent.db.food.FoodItem;
 import net.cloudcentrik.myevent.db.food.FoodItemRepository;
 import net.cloudcentrik.myevent.util.MyEventUtils;
+import org.bson.types.ObjectId;
 import play.Logger;
 import play.data.DynamicForm;
 import play.data.FormFactory;
@@ -48,17 +49,20 @@ public class FoodItemsController extends Controller {
             foodItemRepository.updateFoodItemByEmail(
                     email, name,type, amount);
 
+            flash("info", "Food Item updated!");
+
             return renderFoodItemsList();
         }
     }
 
     //delete FoodItem
-    public Result deleteFoodItem(String email) {
+    public Result deleteFoodItem(String id) {
         String user = session("user");
         if (user == null) {
             return redirect(routes.HomeController.index());
         } else {
-            foodItemRepository.deleteFoodItemByEmail(email);
+            foodItemRepository.deleteFoodItemById(new ObjectId(id));
+            flash("info", "Food Item deleted!");
             return renderFoodItemsList();
         }
     }
@@ -79,6 +83,7 @@ public class FoodItemsController extends Controller {
             final String amount = dynamicForm.get("amount").trim();
 
             foodItemRepository.saveFoodItem(new FoodItem(type, name, amount, email));
+            flash("info", "New Food Item added!");
 
             return renderFoodItemsList();
         }

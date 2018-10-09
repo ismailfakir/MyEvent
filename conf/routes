@@ -21,7 +21,7 @@ POST    /dashboard/users/addSubmit               controllers.UsersController.sub
 
 # FOOD ITEM CONTROLLER ACTIONS
 GET     /dashboard/fooditems                          controllers.FoodItemsController.index
-GET     /dashboard/fooditems/delete/:email            controllers.FoodItemsController.deleteFoodItem(email: String)
+GET     /dashboard/fooditems/delete/:id            controllers.FoodItemsController.deleteFoodItem(id: String)
 POST    /dashboard/fooditems/editSubmit               controllers.FoodItemsController.submitEditFoodItem
 POST    /dashboard/fooditems/addSubmit               controllers.FoodItemsController.submitAddFoodItem
 

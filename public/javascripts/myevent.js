@@ -88,6 +88,41 @@ $('#editUserModal').on('show.bs.modal', function (event) {
 
 /**
   * ================================================
+  * MODAL EDIT Food Item
+  * ================================================
+*/
+$('#editFoodItemModal').on('show.bs.modal', function (event) {
+  var button = $(event.relatedTarget) // Button that triggered the modal
+  var email = button.data('email') // Extract info from data-* attributes
+  var name = button.data('name')
+  var type = button.data('type')
+  var amount = button.data('amount')
+
+  var modal = $(this)
+  modal.find('.modal-body #modalFoodItemEmail').val(email)
+  modal.find('.modal-body #modalFoodItemName').val(name)
+  modal.find('.modal-body #modalFoodItemType').val(type)
+  modal.find('.modal-body #modalFoodItemAmount').val(amount)
+
+});
+
+/**
+  * ================================================
+  * MODAL DELETE Food Item
+  * ================================================
+*/
+$('#deleteFoodItemModal').on('show.bs.modal', function (event) {
+  var button = $(event.relatedTarget) // Button that triggered the modal
+  var id = button.data('id') // Extract info from data-* attributes
+
+  var modal = $(this)
+  modal.find('.modal-title').text('Delete ' + id)
+  modal.find('.modal-footer #deleteModalFoodItemId').attr("href","/dashboard/fooditems/delete/"+id);
+
+});
+
+/**
+  * ================================================
   * SHOW AN ALERT
   * ================================================
 */

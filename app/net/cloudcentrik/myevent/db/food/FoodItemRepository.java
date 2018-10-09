@@ -2,6 +2,7 @@ package net.cloudcentrik.myevent.db.food;
 
 import net.cloudcentrik.myevent.config.MongoConfig;
 import net.cloudcentrik.myevent.db.user.User;
+import org.bson.types.ObjectId;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.query.Query;
 import org.mongodb.morphia.query.UpdateOperations;
@@ -32,9 +33,9 @@ public class FoodItemRepository {
         return foodItemList;
     }
 
-    public void deleteFoodItemByEmail(String email){
+    public void deleteFoodItemById(ObjectId id){
         final Query<FoodItem> query = datastore.createQuery(FoodItem.class);
-        query.field("email").equal(email);
+        query.field("_id").equal(id);
         datastore.findAndDelete(query);
     }
 
