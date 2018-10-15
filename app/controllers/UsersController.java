@@ -9,7 +9,6 @@ import play.data.DynamicForm;
 import play.data.FormFactory;
 import play.mvc.Controller;
 import play.mvc.Result;
-import views.html.login;
 import views.html.users;
 
 import java.util.List;
@@ -91,4 +90,5 @@ public class UsersController extends Controller {
             return ok(users.render("user",Boolean.TRUE,userList));
         }
     }
+
 }

@@ -25,6 +25,10 @@
     <!-- Custom styles for this template-->
     <link href="@routes.Assets.versioned("MyEventBootstrapTheme/css/sb-admin.css")" rel="stylesheet">
 
+    <!-- Custom Jquery-->
+    <link href="@routes.Assets.versioned("MyEventBootstrapTheme/vendor/jquery-ui-1.12.1.custom/jquery-ui.css")" rel="stylesheet">
+    <link href="@routes.Assets.versioned("MyEventBootstrapTheme/vendor/jquery-ui-timepicker-addon/jquery-ui-timepicker-addon.css")" rel="stylesheet">
+
 </head>
 <body id="page-top">
 
@@ -74,9 +78,9 @@
                 <span>Participant</span></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="/dashboard/foodmanagement">
+            <a class="nav-link" href="/dashboard/eventfood">
                 <i class="fas fa-fw fa-solar-panel"></i>
-                <span>Food Management</span></a>
+                <span>Event Food</span></a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="/dashboard/fooditems">
@@ -119,6 +123,7 @@
                 <div class="alert alert-info alert-dismissible fade show" role="alert">
                     <button type="button" class="close" data-dismiss="alert">&times;</button>
                     <p class="text-center">@value</p></div>
+
                 }
 
                 @content
@@ -142,11 +147,16 @@
 
 <!-- Core plugin JavaScript-->
 <script src="@routes.Assets.versioned("MyEventBootstrapTheme/vendor/jquery-easing/jquery.easing.min.js")"></script>
+<script src="@routes.Assets.versioned("MyEventBootstrapTheme/vendor/jquery-easing/jquery.easing.min.js")"></script>
+
+<!--JQUERY jquery-ui-1.12.1.custom-->
+<script src="@routes.Assets.versioned("MyEventBootstrapTheme/vendor/jquery-ui-1.12.1.custom/jquery-ui.js")"></script>
+<script src="@routes.Assets.versioned("MyEventBootstrapTheme/vendor/jquery-ui-timepicker-addon/jquery-ui-timepicker-addon.js")"></script>
 
 <!-- Page level plugin JavaScript-->
 <script src="@routes.Assets.versioned("MyEventBootstrapTheme/vendor/chart.js/Chart.min.js")"></script>
 <script src="@routes.Assets.versioned("MyEventBootstrapTheme/vendor/datatables/jquery.dataTables.js")"></script>
-<script src="@routes.Assets.versioned("MyEventBootstrapTheme/vendor/datatables/dataTables.bootstrap4.js")"></script>
+
 
 <!-- Custom scripts for all pages-->
 <script src="@routes.Assets.versioned("MyEventBootstrapTheme/js/sb-admin.min.js")"></script>
@@ -156,5 +166,6 @@
 <script src="@routes.Assets.versioned("MyEventBootstrapTheme/js/demo/chart-area-demo.js")"></script>
 <!-- Myevent scripts for this page-->
 <script src="@routes.Assets.versioned("javascripts/myevent.js")" type="text/javascript"></script>
+
 </body>
 </html>

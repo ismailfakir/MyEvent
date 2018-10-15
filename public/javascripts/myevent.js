@@ -151,4 +151,44 @@ function showAlert(obj){
      $(".alert-dismissible").alert('close');
  });
 
+ /**
+    * ================================================
+    * SHOW DATE PICKER
+    * ================================================
+  */
+ $( function() {
+     $( "#modalAddEventDate" ).datepicker();
+ } );
+
+ /**
+     * ================================================
+     * SHOW START TIME PICKER
+     * ================================================
+   */
+ $( function() {
+      $( "#modalAddEventStartTime" ).timepicker({
+        timeFormat: 'HH:mm',
+        stepHour: 1,
+        stepMinute: 15
+      });
+  } );
+
+  /**
+     * ================================================
+     * SHOW END TIME PICKER
+     * ================================================
+   */
+  $( function() {
+        $( "#modalAddEventEndTime" ).timepicker({
+            timeFormat: 'HH:mm',
+            stepHour: 1,
+            stepMinute: 15
+        });
+    } );
+
+
+
+
+
+
 

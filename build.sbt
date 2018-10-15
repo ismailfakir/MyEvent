@@ -36,4 +36,22 @@ libraryDependencies += "com.thoughtworks.proxytoys" % "proxytoys" % "1.0"
 // https://mvnrepository.com/artifact/cglib/cglib-nodep
 libraryDependencies += "cglib" % "cglib-nodep" % "3.2.8"
 
+//https://github.com/playframework/play-mailer
+libraryDependencies += "com.typesafe.play" %% "play-mailer" % "6.0.1"
+libraryDependencies += "com.typesafe.play" %% "play-mailer-guice" % "6.0.1"
+
+// https://mvnrepository.com/artifact/org.json/json
+libraryDependencies += "org.json" % "json" % "20180813"
+
+// https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient
+libraryDependencies += "org.apache.httpcomponents" % "httpclient" % "4.5.6"
+// https://mvnrepository.com/artifact/commons-codec/commons-codec
+libraryDependencies += "commons-codec" % "commons-codec" % "1.11"
+// https://mvnrepository.com/artifact/commons-logging/commons-logging
+libraryDependencies += "commons-logging" % "commons-logging" % "1.2"
+// https://mvnrepository.com/artifact/org.apache.httpcomponents/httpcore
+libraryDependencies += "org.apache.httpcomponents" % "httpcore" % "4.4.10"
+
+
+
 

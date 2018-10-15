@@ -1,0 +1,248 @@
+@import helper._
+@import net.cloudcentrik.myevent.db.event.Event
+@(title: String,isAdmin:Boolean,events: List[Event])
+
+@template(title){
+
+@if(isAdmin) {
+
+<div class="card-header">
+    <i class="fas fa-table"></i>
+    event Table
+    <button type="button" class="float-right btn btn-primary" data-toggle="modal" data-target="#addEventModal">
+        <i class="fas fa-fw fa-plus-square"></i>Add event
+    </button>
+</div>
+<div class="card-body">
+    <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Date</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Address</th>
+            </tr>
+            </thead>
+            <tfoot>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Date</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Address</th>
+            </tr>
+            </tfoot>
+            <tbody>
+            @for(event <- events) {
+            <tr>
+                <td>@event.getName()</td>
+                <td>@event.getDescription()</td>
+                <td>@event.getDate()</td>
+                <td>@event.getStartTime()</td>
+                <td>@event.getEndTime()</td>
+                <td>
+                    <p> @event.getAddress().getStreet()</p>
+                    <p> @event.getAddress().getZipCode() @event.getAddress().getCity()</p>
+                    <p> @event.getAddress().getCountry()</p>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editeventModal"
+                            data-name="@event.getName()" data-description="@event.getDescription()"
+                            data-date="@event.getDate()" data-start="@event.getStartTime()" data-end="@event.getEndTime()"
+                            data-address="@event.getAddress()">
+                        <i class="fas fa-fw fa-edit"></i>
+                    </button>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deleteeventModal"
+                            data-id="@event.getId()">
+                        <i class="fas fa-fw fa-trash"></i>
+                    </button>
+                </td>
+            </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Edit event Modal  start-->
+<div class="modal fade" id="editeventModal" tabindex="-1" role="dialog" aria-labelledby="editeventModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Update event</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method="post" action="@CSRF(routes.EventsController.submitEditEvent())">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="modaleventEmail">Email</label>
+                        <input name="email" type="email" class="form-control" id="modaleventEmail"
+                               aria-describedby="emailHelp" placeholder="email" readonly>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="modaleventName">Name</label>
+                        <input name="name" type="text" class="form-control" id="modaleventName"
+                               aria-describedby="nameHelp" placeholder="name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="modaleventPassword">Password</label>
+                        <input name="password" type="password" class="form-control" id="modaleventPassword"
+                               aria-describedby="passwordHelp" placeholder="password">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="modaleventPhone">Phone</label>
+                        <input name="phone" type="text" class="form-control" id="modaleventPhone"
+                               aria-describedby="phoneHelp" placeholder="phone">
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Modal Edit event end-->
+
+<!-- Modal  Delete event Start-->
+<div class="modal fade" id="deleteeventModal" tabindex="-1" role="dialog" aria-labelledby="deleteeventModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Are you sure?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Do you really want to delete these records? This process cannot be undone.</div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <a class="btn btn-primary" id="deleteModaleventEmail" href="">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal Delete event End-->
+
+<!-- Modal add event  start-->
+<div class="modal fade" id="addEventModal" tabindex="-1" role="dialog" aria-labelledby="addEventModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addEventModalLabel">Add New event</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method="post" action="@CSRF(routes.EventsController.submitAddEvent())">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="modalAddEventName">Name</label>
+                        <input name="name" type="text" class="form-control" id="modalAddEventName"
+                               aria-describedby="nameHelp" placeholder="name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="modalAddEventDescription">Description</label>
+                        <!--<input name="description" type="text" class="form-control" id="modalAddEventDescription"
+                               aria-describedby="descriptionHelp" placeholder="description">-->
+                        <textarea class="form-control" rows="3" id="modalAddEventDescription"></textarea>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-4 col-sm-4">
+                            <div class="form-group">
+                                <label for="modalAddEventDate">Date</label>
+                                <input name="date" type="text" class="form-control" id="modalAddEventDate"
+                                       aria-describedby="dateHelp" placeholder="date">
+                            </div>
+                        </div>
+                        <div class="col-4 col-sm-4">
+                            <div class="form-group">
+                                <label for="modalAddEventStartTime">Start Time</label>
+                                <input name="startTime" type="text" class="form-control" id="modalAddEventStartTime"
+                                       aria-describedby="startTimeHelp" placeholder="start time">
+                            </div>
+                        </div>
+                        <div class="col-4 col-sm-4">
+                            <div class="form-group">
+                                <label for="modalAddEventEndTime">End Time</label>
+                                <input name="endTime" type="text" class="form-control" id="modalAddEventEndTime"
+                                       aria-describedby="endTimeHelp" placeholder="end time">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-body">
+                            <h6 class="card-title">Address</h6>
+                            <div class="row">
+                                <div class="col-12 col-sm-12">
+                                    <div class="form-group">
+                                        <label for="modalAddEventAddressStreet">Street</label>
+                                        <input name="addressStreet" type="text" class="form-control" id="modalAddEventAddressStreet"
+                                               aria-describedby="addressStreet" placeholder="street">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+
+                                <div class="col-4 col-sm-4">
+                                    <div class="form-group">
+                                        <label for="modalAddEventAddressPostCode">Post Code</label>
+                                        <input name="addressStreet" type="text" class="form-control" id="modalAddEventAddressPostCode"
+                                               aria-describedby="addressStreet" placeholder="post code">
+                                    </div>
+                                </div>
+
+                                <div class="col-4 col-sm-4">
+                                    <div class="form-group">
+                                        <label for="modalAddEventAddressCity">City</label>
+                                        <input name="addressStreet" type="text" class="form-control" id="modalAddEventAddressCity"
+                                               aria-describedby="addressStreet" placeholder="city">
+                                    </div>
+                                </div>
+
+                                <div class="col-4 col-sm-4">
+                                    <div class="form-group">
+                                        <label for="modalAddEventAddressCountry">Country</label>
+                                        <input name="addressStreet" type="text" class="form-control" id="modalAddEventAddressCountry"
+                                               aria-describedby="addressStreet" placeholder="country">
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Modal Add event end-->
+
+
+} else {
+<h1>event PANEL</h1>
+}
+
+}

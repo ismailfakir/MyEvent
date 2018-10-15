@@ -25,6 +25,12 @@ GET     /dashboard/fooditems/delete/:id            controllers.FoodItemsControll
 POST    /dashboard/fooditems/editSubmit               controllers.FoodItemsController.submitEditFoodItem
 POST    /dashboard/fooditems/addSubmit               controllers.FoodItemsController.submitAddFoodItem
 
+# EVENT CONTROLLER ACTIONS
+GET     /dashboard/events                          controllers.EventsController.index
+GET     /dashboard/events/delete/:id            controllers.EventsController.deleteEvent(id: String)
+POST    /dashboard/events/editSubmit               controllers.EventsController.submitEditEvent
+POST    /dashboard/events/addSubmit               controllers.EventsController.submitAddEvent
+
 GET     /register                           controllers.HomeController.register
 GET     /forgotpassword                           controllers.HomeController.forgotpassword
 
